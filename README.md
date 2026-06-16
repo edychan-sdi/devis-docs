@@ -202,7 +202,7 @@ sequenceDiagram
 
 Berikut Menu **Sales Quotation**:
 
-![Quotation List](image.png)
+![Quotation List](images/image.png)
 
 Tombol yang tersedia:
 
@@ -219,7 +219,7 @@ Tombol `New` digunakan untuk membuat Quotation baru. Pada form New, terdapat 2 b
 
 ##### Bagian Header
 
-![SO Header](image-2.png)
+![SO Header](images/image-2.png)
 
 | Field             | Keterangan                                                                                                  |
 | ----------------- | ----------------------------------------------------------------------------------------------------------- |
@@ -236,7 +236,7 @@ Tombol `New` digunakan untuk membuat Quotation baru. Pada form New, terdapat 2 b
 
 ##### Bagian Detail
 
-![SO Detail](image-3.png)
+![SO Detail](images/image-3.png)
 
 Bagian Detail terdiri dari 3 bagian (Tab), yakni:
 
@@ -253,11 +253,11 @@ Bagian Detail terdiri dari 3 bagian (Tab), yakni:
 |Delete All Grid|Berfungsi untuk menghapus semua lokasi/view yang sudah dihapus sekaligus|
 |List Tabel|Berisi semua lokasi/view yang ditawarkan kepada customer. Untuk detail penawaran terkait lokasi tersebut dapat dilihat dengan double klik pada baris lokasi/view yang ingin dilihat|
 
-![alt text](image-4.png)
+![alt text](images/image-4.png)
 
 Gambar diatas adalah detail dari lokasi/view yang ditawarkan pada Quotation saat double klik di List Tabel. Pada form ini, user dapat menentukan `Periode` sewa, `Price` dari harga jual, Dan bila media berupa Videotron, maka user dapat mengisi jumlah `Spot` yang ditawarkan.
 
-![alt text](image-5.png)
+![alt text](images/image-5.png)
 
 Bagian `Cost` adalah total dari perincian biaya-biaya layanan yang akan menjadikan nilai dari Quotation yang ditawarkan ke customer. User dapat menambahkan komponen `Cost` dan `Harga`, `PPn`, serta keterangan `Reimburse` atau tidak ke customer.
 
@@ -295,11 +295,11 @@ flowchart TD
 
 Berikut adalah mapping _Job Order_ ke departemen SDP, Operation, Procurement dan Document Control berdasarkan tipe Order di Sales Order:
 
-![alt text](image-6.png)
+![alt text](images/image-6.png)
 
 Berikut adalah Menu **Sales Order**:
 
-![alt text](image-7.png)
+![alt text](images/image-7.png)
 
 Tombol yang tersedia:
 
@@ -311,13 +311,13 @@ Tombol yang tersedia:
 | Excel    | Berfungsi untuk export kumpulan data Quotation ke format Excel sesuai dengan filter yang dipilih.             |
 | Preview  | Berfungsi untuk mencetak Sales Order dalam format PDF atau cetak ke Printer                                   |
 
-![alt text](image-8.png)
+![alt text](images/image-8.png)
 
 Tombol `New` digunakan untuk membuat Quotation baru. Pada form New, terdapat 2 bagian form, yakni: bagian _Header_ dan bagian _Detail_.
 
 ##### Bagian Header
 
-![alt text](image-9.png)
+![alt text](images/image-9.png)
 
 | Field             | Keterangan                                                                                              |
 | ----------------- | ------------------------------------------------------------------------------------------------------- |
@@ -335,7 +335,7 @@ Tombol `New` digunakan untuk membuat Quotation baru. Pada form New, terdapat 2 b
 
 ##### Bagian Detail
 
-![alt text](image-10.png)
+![alt text](images/image-10.png)
 
 Bagian Detail terdiri dari 4 bagian (Tab), yakni:
 
@@ -353,10 +353,10 @@ Bagian Detail terdiri dari 4 bagian (Tab), yakni:
 |Delete All Grid|Berfungsi untuk menghapus semua lokasi/view yang sudah dihapus sekaligus|
 |List Tabel|Berisi semua lokasi/view yang dipesan oleh customer. Untuk detail lokasi tersebut dapat dilihat dengan double klik pada baris lokasi/view yang ingin dilihat atau melalui tombol `Form Detail`|
 
-![alt text](image-11.png)
+![alt text](images/image-11.png)
 
 Gambar diatas adalah Form Detail dari view yang ada di List Tabel. Pada form ini dapat dilengkapi informasi Periode sewa, Price, Start Date / End Date, Spot (Digital), Deadline, Free Repostering, Free Digital Print, Need Digital Print, dan CB. Setelah diisi, maka klik `UPDATE INFORMATION` untuk simpan data.
 
-![alt text](image-12.png)
+![alt text](images/image-12.png)
 
 Bagian bawah merupakan komponen harga dari Sales Order. Sama seperti Quotation, Cost Code dapat diisi dan disimpan. (Tombol `Add` untuk menambah Cost ke tabel, `Update` untuk mengubah Cost, dan `Delete` untuk menghapus)
