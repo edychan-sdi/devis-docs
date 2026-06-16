@@ -149,7 +149,7 @@ Dalam sistem ERP, aktivitas penjualan terdiri dari 5 jenis, yakni:
 Adapun fitur-fitur yang ada pada modul Sales, terdiri dari:
 
 1. [Quotation Transaction](#21-quotation-transaction)
-2. Sales Order Transaction
+2. [Sales Order Transaction](#22-sales-order-transaction)
 3. Sales Order Status
 4. Quotation General
 5. Complaint Form
@@ -213,13 +213,11 @@ Tombol yang tersedia:
 | Edit     | Berfungsi untuk mengubah data Sales Quotation yang sudah dibuat.                                              |
 | Excel    | Berfungsi untuk export kumpulan data Quotation ke format Excel sesuai dengan filter yang dipilih.             |
 
-##### Sales Quotation New
-
 ![SO new](image-1.png)
 
-Sales Quotation New digunakan untuk membuat Sales Quotation baru. Pada form New, terdapat 2 bagian form, yakni: bagian `Header` dan bagian `Detail`.
+Tombol `New` digunakan untuk membuat Quotation baru. Pada form New, terdapat 2 bagian form, yakni: bagian _Header_ dan bagian _Detail_.
 
-###### Bagian Header
+##### Bagian Header
 
 ![SO Header](image-2.png)
 
@@ -236,11 +234,129 @@ Sales Quotation New digunakan untuk membuat Sales Quotation baru. Pada form New,
 | Ttd 2             | Berisi nama atasan Account Executive yang bertugas                                                          |
 | Sub Division      | Berisi divisi Sales Departemen yang terkait atas Quotation yang sedang dibuat (Cigarettes / Non-cigarettes) |
 
-###### Bagian Detail
+##### Bagian Detail
 
 ![SO Detail](image-3.png)
 
-| Field     | Keterangan                                                                                                            |
-| --------- | --------------------------------------------------------------------------------------------------------------------- |
-| Tab Entry | Bagian Quotation yang berisi View-view yang ditawarkan kepada customer beserta detailnya                              |
-| Paragraph | Bagian Quotation yang berisi kepala dan badan surat penawaran, serta syarat dan ketentuan yang berlaku pada Quotation |
+Bagian Detail terdiri dari 3 bagian (Tab), yakni:
+
+- **Entry**: Bagian Quotation yang berisi View-view yang ditawarkan kepada customer beserta detailnya.
+- **Paragraph**: Bagian Quotation yang berisi kepala dan badan surat penawaran, serta syarat dan ketentuan yang berlaku pada Quotation.
+- **Attachment**: Bagian Quotation yang berisi lampiran file dokumen pendukung yang berkaitan dengan Quotation tersebut
+
+**Entry**
+|Field|Keterangan|
+|---|---|
+|Dropdown|Berisi jenis Quotation. Terdapat beberapa pilihan, antara lain:<br><ul><li>New Placement</li><li>Repostering</li><li>Maintenance</li><li>Custom</li><li>Contract Renewal</li><li>Advertising Tax</li></ul>|
+|Add Location|Berfungsi untuk menambahkan lokasi & view yang ditawarkan ke customer|
+|Delete Location|Berfungsi untuk menghapus lokasi/view yang sudah diinput|
+|Delete All Grid|Berfungsi untuk menghapus semua lokasi/view yang sudah dihapus sekaligus|
+|List Tabel|Berisi semua lokasi/view yang ditawarkan kepada customer. Untuk detail penawaran terkait lokasi tersebut dapat dilihat dengan double klik pada baris lokasi/view yang ingin dilihat|
+
+![alt text](image-4.png)
+
+Gambar diatas adalah detail dari lokasi/view yang ditawarkan pada Quotation saat double klik di List Tabel. Pada form ini, user dapat menentukan `Periode` sewa, `Price` dari harga jual, Dan bila media berupa Videotron, maka user dapat mengisi jumlah `Spot` yang ditawarkan.
+
+![alt text](image-5.png)
+
+Bagian `Cost` adalah total dari perincian biaya-biaya layanan yang akan menjadikan nilai dari Quotation yang ditawarkan ke customer. User dapat menambahkan komponen `Cost` dan `Harga`, `PPn`, serta keterangan `Reimburse` atau tidak ke customer.
+
+**Alur Penginputan:**
+
+1. Buka Menu _Quotation Transaction_, klik `New`
+1. Isi semua data bagian _Header_, kemudian `Save`
+1. Setelah `Save`, maka bagian _Detail_ dibawah akan muncul
+1. Cari lokasi, klik `Show` dan kemudian pilih lokasi yang diinginkan pada kotak, kemudian klik `Save` dan `Close`
+1. Dobel klik pada lokasi yang sudah disimpan
+1. Isi semua kolom yang masih kosong dan kemudian klik `Update Information`
+1. Isi Nama Cost dan nilainya pada tabel bagian bawah dan klik `Update`
+1. Klik `Booking` bila customer sudah memilih lokasi yang ditentukan tersebut
+1. `Confirm` oleh Manager
+1. `Preview` & Print/download
+
+---
+
+#### 2.2. Sales Order Transaction
+
+**Sales Order** berfungsi untuk pembuatan pesanan dari customer atas penawaran dari Sales Quotation yang sebelumnya sudah ditawarkan kepada customer. Apabila Quotation sudah deal, maka dapat dilanjutkan pada pembuatan **Sales Order**.
+
+Berikut adalah flowchart untuk alur dari **Sales Order** ke departemen lainnya:
+
+```mermaid
+flowchart TD
+    A(Customer) -->|Inquiry| B(Account Executive)
+    B --> |Quotation| A
+    B --> |Sales Order| C{Confirmed}
+    C -->|JO SDP| D(Site Development & Permit)
+    C -->|JO Production| E(Operation)
+    C -->|JO Procurement| F(Procurement)
+    C -->|MoU| G(Document Control)
+```
+
+Berikut adalah mapping _Job Order_ ke departemen SDP, Operation, Procurement dan Document Control berdasarkan tipe Order di Sales Order:
+
+![alt text](image-6.png)
+
+Berikut adalah Menu **Sales Order**:
+
+![alt text](image-7.png)
+
+Tombol yang tersedia:
+
+| Tombol   | Keterangan                                                                                                    |
+| -------- | ------------------------------------------------------------------------------------------------------------- |
+| ShowData | Berfungsi untuk menampilkan list Quotation yang sudah dibuat di sistem ERP sesuai dengan filter yang dipilih. |
+| New      | Berfungsi untuk membuat Sales Quotation baru.                                                                 |
+| Edit     | Berfungsi untuk mengubah data Sales Quotation yang sudah dibuat.                                              |
+| Excel    | Berfungsi untuk export kumpulan data Quotation ke format Excel sesuai dengan filter yang dipilih.             |
+| Preview  | Berfungsi untuk mencetak Sales Order dalam format PDF atau cetak ke Printer                                   |
+
+![alt text](image-8.png)
+
+Tombol `New` digunakan untuk membuat Quotation baru. Pada form New, terdapat 2 bagian form, yakni: bagian _Header_ dan bagian _Detail_.
+
+##### Bagian Header
+
+![alt text](image-9.png)
+
+| Field             | Keterangan                                                                                              |
+| ----------------- | ------------------------------------------------------------------------------------------------------- |
+| Sales Order No    | Nomor Sales Order (autogenerated dari sistem)                                                           |
+| Sales Order Date  | Klik untuk memilih tanggal Sales Order dibuat                                                           |
+| Customer          | Kode dan Nama Customer, dapat dipilih dari daftar Customer dengan klik tombol hitam di samping          |
+| PIC               | Isi nama PIC Customer yang dapat dihubungi terkait Order ini                                            |
+| Sub Division      | Berisi divisi Sales Departemen yang terkait atas Order yang sedang dibuat (Cigarettes / Non-cigarettes) |
+| Account Executive | Berisi nama Sales Person dari pihak Devis yang menangani Sales Order ini                                |
+| PO No             | Nomor PO dari Customer sebagai lampiran referensi                                                       |
+| Ttd 1             | Berisi nama Account Executive yang bertugas                                                             |
+| Ttd 2             | Berisi nama atasan Account Executive yang bertugas                                                      |
+| Billing Address   | Alamat penagihan Customer                                                                               |
+| Office Address    | Alamat kantor Customer                                                                                  |
+
+##### Bagian Detail
+
+![alt text](image-10.png)
+
+Bagian Detail terdiri dari 4 bagian (Tab), yakni:
+
+- **Entry**: Berisi View-view yang dipesan oleh customer beserta detailnya.
+- **Note To Government Relation**: Berisi catatan khusus untuk departemen SDP atas pesanan customer terkait.
+- **Note To Production**: Berisi catatan khusus untuk departemen Operation atas pesanan customer terkait.
+- **Attachment**: Berisi lampiran file dokumen pendukung yang berkaitan dengan pesanan terkait.
+
+**Entry**
+|Field|Keterangan|
+|---|---|
+|Form Detail|Berfungsi untuk menampilkan detail informasi terkait dengan lokasi View yang dipilih|
+|Add Location|Berfungsi untuk menambahkan lokasi & view yang ditawarkan ke customer|
+|Delete Location|Berfungsi untuk menghapus lokasi/view yang sudah diinput|
+|Delete All Grid|Berfungsi untuk menghapus semua lokasi/view yang sudah dihapus sekaligus|
+|List Tabel|Berisi semua lokasi/view yang dipesan oleh customer. Untuk detail lokasi tersebut dapat dilihat dengan double klik pada baris lokasi/view yang ingin dilihat atau melalui tombol `Form Detail`|
+
+![alt text](image-11.png)
+
+Gambar diatas adalah Form Detail dari view yang ada di List Tabel. Pada form ini dapat dilengkapi informasi Periode sewa, Price, Start Date / End Date, Spot (Digital), Deadline, Free Repostering, Free Digital Print, Need Digital Print, dan CB. Setelah diisi, maka klik `UPDATE INFORMATION` untuk simpan data.
+
+![alt text](image-12.png)
+
+Bagian bawah merupakan komponen harga dari Sales Order. Sama seperti Quotation, Cost Code dapat diisi dan disimpan. (Tombol `Add` untuk menambah Cost ke tabel, `Update` untuk mengubah Cost, dan `Delete` untuk menghapus)
