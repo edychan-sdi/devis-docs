@@ -11,9 +11,9 @@ Adapun modul-modul yang tercakup pada DEVIS RedsFin ERP ini terdiri dari:
 1. [Master Data](#1-master-data)
 2. [Sales](#2-sales)
 3. Procurement
-4. Production
+4. [Production](#4-production)
 5. Inventory
-6. Site Development & Permit
+6. [Site Development & Permit](#6-site-development--permit)
 7. Marketing
 8. Finance Accounting
 9. Reporting & Dashboard
@@ -153,13 +153,13 @@ Adapun fitur-fitur yang ada pada modul Sales, terdiri dari:
 3. [Sales Order Status](#23-sales-order-status)
 4. [Quotation General](#24-quotation-general)
 5. [Complaint Form](#25-complaint-form)
-6. OOH Inventory - Vendor
-7. Digital Spot Availability
-8. View Available
-9. Reserved
-10. Deadline Customer
-11. Report Digital
-12. Pulldown Order
+6. [OOH Inventory - Vendor](#26-ooh-inventory---vendor)
+7. [Digital Spot Availability](#27-digital-spot-availability)
+8. [View Available](#28-view-available)
+9. [Reserved](#29-reserved)
+10. [Deadline Customer](#210-deadline-customer)
+11. [Report Digital](#211-report-digital)
+12. [Pulldown Order](#212-pulldown-order)
 13. Expired Deadline Customer
 
 ---
@@ -481,3 +481,146 @@ Bagian Detail terdiri dari 2 Tab:
 
 - **Before**: Berisi lampiran dokumen / gambar saat kondisi pelaporan dan sebelum penanganan oleh team.
 - **After**: Berisi lampiran dokumen / gambar saat kondisi setelah ditangani dan diselesaikan olen team.
+
+#### 2.6. OOH Inventory - Vendor
+
+Menu ini digunakan untuk melihat semua list Location & View Vendor yang terdaftar di sistem, informasi spesifikasi View, serta mana yang sedang diisi oleh client Devis dan informasi masa berlaku kontraknya.
+
+![alt text](images/image-20.png)
+
+Menu ini menyediakan filter untuk pencarian data berdasarkan View Name, Tipe Static / Digital, Kota, Tipe Media (Billboard, Baliho, dll), dan Light Type.
+
+#### 2.7. Digital Spot Availability
+
+Menu ini digunakan untuk mengetahui ketersediaan View Digital (Videotron) dari rentang tanggal tertentu dan jumlah spot yang dibutuhkan, dan juga dari alamat tertentu. Menu ini membantu Sales untuk mengakses ketersediaan View Digital sesuai dengan kebutuhan customer di waktu tertentu, dengan frekwensi penayangan tertentu dan lokasi tertentu.
+
+![alt text](images/image-21.png)
+
+![alt text](images/image-22.png)
+
+#### 2.8. View Available
+
+Menu ini digunakan untuk mengetahui ketersediaan Location & View Statis, dan Readiness dari masing-masing view tersebut. Menu ini menyediakan berbagai filter navigasi untuk membantu mencari View tertentu dengan berbagai kategori pilihan (by Name, Tipe, Province, City, Media Type, Light Type) dan filter per kolom data.
+
+![alt text](images/image-23.png)
+
+#### 2.9. Reserved
+
+Menu ini digunakan untuk melihat dan memantau Location & View yang sedang di Booking oleh Quotation lain dan mana yang Available untuk ditawarkan kepada calon client. Informasi dilengkapi dengan periode Bookingnya dengan rentang tanggal.
+
+![alt text](images/image-24.png)
+
+#### 2.10. Deadline Customer
+
+Menu ini digunakan untuk menampilkan informasi dari Sales Order customer yang sedang berjalan / disewa dan akan jatuh tempo habis masa kontraknya. Dari daftar ini, _Account Executive_ dapat menentukan apakah View tersebut akan diperpanjang kontraknya atau tidak diperpanjang maka View tersebut harus dilakukan Pulldown.
+
+Pada menu ini tersedia 2 button:
+
+1. **Renewal**, maka akan membuka menu `Sales Quotation` untuk `Contract Renewal`.
+2. **Pulldown**, maka akan membuka menu `Pulldown Order` untuk perintah penurunan media iklan.
+
+![alt text](images/image-25.png)
+
+#### 2.11. Report Digital
+
+Menu ini digunakan untuk menampilkan seluruh Location & View tipe Digital dan berikut dengan spesifikasi detail dari View Digital terkait, dan beserta dengan history View tersebut sudah pernah dipesan oleh Customer siapa dan tanggal berapa serta nomor SO-nya dan berapa Spot yang pernah disewa.
+
+![alt text](images/image-26.png)
+
+![alt text](images/image-27.png)
+
+#### 2.12. Pulldown Order
+
+Menu ini digunakan untuk menginisiasi instruksi penurunan media tayang terkait dengan telah berakhirnya masa sewa / kontrak dari Sales Order Customer. Pada form ini, user perlu melengkapi data Location & View, alasan Pulldown, tanggal dilakukan Pulldown, dan tebusan ke departemen terkait (Operations, Gov. Relation, dan Procurement).
+
+![alt text](images/image-28.png)
+
+#### 2.13. Expired Deadline Customer
+
+Menu ini digunakan untuk menampilkan informasi daftar Location & View dari Sales Order customer yang sudah melewati masa sewa/kontrak, dan masih belum dilakukan Pulldown Order.
+
+![alt text](images/image-29.png)
+
+---
+
+### 4. Production
+
+#### Flow WO Repostering
+
+```mermaid
+sequenceDiagram
+    Participant F as Customer
+    Participant D as Sales
+    Participant E as Document Control
+    Participant A as Production
+    Participant B as Finance
+    Participant C as Supplier
+
+    F->>D: Sales Order
+    D->>E: MOU
+    D->>A: JO Production
+    A-->>+A: WO Repostering
+    A->>+B: Payment Request
+    B->>B: Supplier Invoice Manual
+    B->>C: Supplier Payment
+    B->>-A: Payment Completed
+    A->>E: BAST & Foto Tayang
+    A-->>-A: WO Repostering Finish
+    E->>F: Sales Invoice
+    A->>D: Finish JO
+```
+
+#### Flow WO Maintenance
+
+```mermaid
+sequenceDiagram
+    Participant A as Account Executive
+    Participant B as Production
+    Participant C as Procurement
+    Participant D as Finance
+    Participant E as Supplier
+
+    alt Customer Complain
+        A->>B: Complain Form
+    else Internal Finding
+        B-->>B: Finding Form
+    end
+    A->>+B: JO Production
+    opt Need Digital Print
+        B->>+C: JO Procurement
+        C-->>C: Purchase Order
+        C->>D: Goods Receive
+        D-->>D: Purchase Invoice
+        D->>E: Supplier Payment
+        D->>C: Payment Completed
+        C->>-B: Finish JO
+    end
+    B-->>+B: WO Maintenance
+    B->>D: Payment Request
+    D-->>D: Supplier Invoice Manual
+    D->>E: Supplier Payment
+    D->>B: Payment Completed
+    B-->>-B: WO Maintenance Finish
+    B->>-A: Finish JO
+```
+
+---
+
+### 6. Site Development & Permit
+
+#### Department Site Development & Permit (SDP), Flow Sewa Lokasi, Advertising Tax & Permit
+
+```mermaid
+sequenceDiagram
+    Participant D as Sales
+    Participant A as Site Development
+    Participant B as Finance
+    Participant C as Supplier
+
+    D->>A: JO Site Development
+    A->>B: Payment Request
+    B-->>B: Supplier Invoice Manual
+    B->>C: Supplier Payment
+    B->>A: Payment Complete
+    A->>D: Finish JO
+```
