@@ -150,9 +150,9 @@ Adapun fitur-fitur yang ada pada modul Sales, terdiri dari:
 
 1. [Quotation Transaction](#21-quotation-transaction)
 2. [Sales Order Transaction](#22-sales-order-transaction)
-3. Sales Order Status
-4. Quotation General
-5. Complaint Form
+3. [Sales Order Status](#23-sales-order-status)
+4. [Quotation General](#24-quotation-general)
+5. [Complaint Form](#25-complaint-form)
 6. OOH Inventory - Vendor
 7. Digital Spot Availability
 8. View Available
@@ -360,3 +360,124 @@ Gambar diatas adalah Form Detail dari view yang ada di List Tabel. Pada form ini
 ![alt text](images/image-12.png)
 
 Bagian bawah merupakan komponen harga dari Sales Order. Sama seperti Quotation, Cost Code dapat diisi dan disimpan. (Tombol `Add` untuk menambah Cost ke tabel, `Update` untuk mengubah Cost, dan `Delete` untuk menghapus)
+
+#### 2.3. Sales Order Status
+
+**Sales Order Status** berfungsi untuk memantau progress dari masing-masing Sales Order yang ada di sistem dari masing-masing departemen terkait.
+
+![alt text](images/image13.png)
+
+Pada bagian tabel paling bawah (highlight) dapat dilihat per masing-masing View yang dipesan customer terkait Sales Order tersebut, untuk masing-masing pengerjaan oleh departemen terkait akan terlihat statusnya dan tanggal selesainya.
+
+#### 2.4. Quotation General
+
+**Quotation General** berfungsi untuk membuat template Quotation yang diperuntukkan kepada customer tertentu yang membutuhkan bentuk yang berbeda dengan Quotation template biasanya.
+
+##### Daftar Quotation General
+
+![alt text](images/image-14.png)
+
+##### Form Quotation General Builder
+
+![alt text](images/image-15.png)
+![alt text](images/image-16.png)
+
+#### 2.5. Complaint Form
+
+**Complaint Form** berfungsi untuk mencatat dan menindaklanjuti keluhan customer atas View yang sedang disewakan oleh beberapa masalah, misalnya: terhalang oleh pepohonan, media iklan robek/rusak, atau lain-lain. _Customer_ akan menghubungi _Account Executive_ untuk menyampaikan keluhannya dan _Account Executive_ akan mencatat ke **Complaint Form** untuk ditindaklanjuti oleh departemen _Operation_ dan departemen lainnya yang berkaitan.
+
+Namun apabila masalah pada View yang ditemukan oleh team internal, maka Team internal dapat mencatat dan menindaklanjuti masalah tersebut melalui **Finding Form** yang ada pada **Modul Production**.
+
+##### Alur Customer Complain & Internal Finding
+
+```mermaid
+sequenceDiagram
+    Actor C as Customer
+    Actor O as Internal Person
+    Participant AE as Account Executive
+    Participant MD as Media Dev
+    Participant OM as Operations Mgr
+    Participant OP as Operations
+    Participant GR as SDP
+    Participant PR as Procurement
+    Participant MN as Management
+    Participant FN as Finance
+
+    C -->> AE: Report any Media Display Issues
+    AE ->>+ OM: Complaint Form
+
+    O -->> MD: Report any Media Display Issues
+    MD ->>+ OM: Finding Form
+
+    OM ->>+ OP: Job Order OP
+    OP ->>+ PR: Work Order (Reparation / Repostering)
+    ALT Vacant Views
+        PR ->>+ FN: Purchase Invoice
+        FN ->>- PR: Invoice Payment
+    END
+    ALT Rent Views (Sold)
+        PR ->>+ MN: Purchase Invoice
+        MN ->>- PR: Invoice Payment
+    END
+    PR ->>- OP: WO Handover Note (BAST)
+    OP ->>- OM: Job Order Completed
+
+    OM ->>+ GR: Job Order GR
+    GR ->>+ FN: Payment Request
+    FN ->> GR: Payment Voucher
+    GR ->> FN: Payment Settlement
+    FN ->>- GR: Settlement Approved
+    GR ->>- OM: Job Order Completed
+
+    OM ->>+ PR: Job Order Procurement
+    PR ->>+ PR: Purchase Order Digital Print
+    PR ->>- PR: Good Receipt Note
+    PR ->> FN: Purchase Invoice
+    PR ->>- OM: Job Order Completed
+
+    OM ->>- MD: Ticket Finished
+    MD -->> O: Issue Solved
+
+    MD -->> AE: Issue Solved
+    AE -->> C: Inform to Customer
+```
+
+##### Form List
+
+![alt text](images/image-17.png)
+
+Berikut adalah list Complaint Form yang tercatat pada sistem. User dapat mencari, melihat dan mengubah data komplain pada daftar ini.
+
+![alt text](images/image-18.png)
+
+Berikut diatas adalah saat pembuatan Complaint Form baru.
+
+##### Header
+
+| Field             | Keterangan                                                                                                                                                                                         |
+| ----------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Complain No       | Nomor Complain (autogenerate oleh sistem)                                                                                                                                                          |
+| Report Date       | Tanggal pelaporan isu oleh customer                                                                                                                                                                |
+| Report By         | Dilaporkan oleh                                                                                                                                                                                    |
+| SO Number         | Nomor Sales Order customer                                                                                                                                                                         |
+| Customer          | Kode dan nama customer                                                                                                                                                                             |
+| Finding No        | Nomor Finding apabila View tersebut sudah pernah dilaporkan oleh Team Internal                                                                                                                     |
+| Department        | Departemen terkait yang menerima keluhan customer                                                                                                                                                  |
+| View Code         | Kode View yang dilaporkan                                                                                                                                                                          |
+| Location Code     | Kode Location dari view yang berkaitan                                                                                                                                                             |
+| View Name         | Nama View yang dilaporkan                                                                                                                                                                          |
+| Issue Type        | Jenis issue yang dilaporkan. Pada sistem terdapat beberapa jenis kategori isu yang dapat dipilih, yakni:<ul><li>Construction</li><li>Electrical</li><li>Cutting Tree</li><li>Repostering</li></ul> |
+| Issue Description | Uraian detail mengenai keluhan yang dilaporkan oleh customer dan kondisi view saat dilaporkan                                                                                                      |
+| Status            | Berisi status Complain                                                                                                                                                                             |
+| Store             | Berisi cabang yang berkorelasi dengan view yang dilaporkan                                                                                                                                         |
+| Dept Involve      | User dapat menentukan isu ini akan perlu bantuan dari departemen mana saja untuk penanganannya                                                                                                     |
+| Deadline          | Merupakan tanggal yang diharapkan isu dapat terselesaikan oleh team terkait                                                                                                                        |
+
+##### Detail
+
+![alt text](images/image-19.png)
+
+Bagian Detail terdiri dari 2 Tab:
+
+- **Before**: Berisi lampiran dokumen / gambar saat kondisi pelaporan dan sebelum penanganan oleh team.
+- **After**: Berisi lampiran dokumen / gambar saat kondisi setelah ditangani dan diselesaikan olen team.
